@@ -227,6 +227,14 @@ svg#clouds {
   }
 }
 
+
+
+
+
+
+
+
+
 table tr th.select-checkbox.selected::after {
   content: "✔";
   margin-top: 0px;
@@ -264,7 +272,7 @@ table {
   width: 100%;
   overflow: auto;
   display: table;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
@@ -289,3 +297,5 @@ td a {
 .was-validated .form-control:invalid, .form-control.is-invalid, .was-validated .custom-select:invalid, .custom-select.is-invalid {
   border-color: red !important;
 }
+
+

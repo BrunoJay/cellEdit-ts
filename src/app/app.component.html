@@ -20,7 +20,8 @@
             <th class='text-center'>Name [Text]</th>
             <th class='text-center'>Age [Number]</th>
             <th class='text-center'>Date of Birth [Date]</th>
-            <th class='text-center'>Course [DropdownList]</th>
+            <th class='text-center'>Telephone</th>
+            <th class='text-center'>Course [Dropdown]</th>
           </tr>
           </thead>
           <tbody>
@@ -40,6 +41,12 @@
             <td class='text-center' id="{{row.id + '-dateOfBirth'}}">{{ row.dateOfBirth }}
               <div>
                 <button class="btn btn-link" (click)="cellEditor(row, row.id + '-dateOfBirth', 'dateOfBirth', row.age, 'date')">
+                  <i class="fa-solid fa-pencil"></i></button>
+              </div>
+            </td>
+            <td class='text-center' id="{{row.id + '-telephone'}}">{{row.telephone}}
+              <div>
+                <button class="btn btn-link" (click)="cellEditor(row, row.id + '-telephone', 'telephone', row.telephone, 'telephone')">
                   <i class="fa-solid fa-pencil"></i></button>
               </div>
             </td>

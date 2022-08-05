@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnUpdateCell {
       name: "John Wick",
       age: "45",
       dateOfBirth: "1977",
+      telephone: "24242626267776",
       course: "Agriculture",
     },
     {
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnUpdateCell {
       name: "Alexandar Dor",
       age: "25",
       dateOfBirth: "1997",
+      telephone: "077334142551",
       course: "Engineering",
     }
   ]
@@ -32,6 +34,8 @@ export class AppComponent implements OnInit, OnUpdateCell {
     {id:'fwaefwefwef',name:'Law'},
     {id:'wefaweffawf',name:'Psychology'}
   ]
+
+  static regexTelephone = /^0[0-9]{9}$/
 
   ngOnInit(): void {
   }

@@ -1,3 +1,5 @@
+import {AppComponent} from "../app.component";
+
 export class CellEdit {
   condition: boolean | undefined;
 
@@ -109,6 +111,11 @@ export class CellEdit {
           input.placeholder = "Telephone Number";
           input.type = "text";
           input.addEventListener("keyup", (e: Event) => this.validateNumber(e));
+        } else if (type == 'date') {
+          input = document.createElement('input');
+          input.placeholder = "Date";
+          input.type = "text";
+          input.addEventListener("keyup", (e: Event) => this.validateNumber(e));
         } else {
           input = document.createElement('textarea');
           input.setAttribute('rows', '1');
@@ -172,7 +179,7 @@ export class CellEdit {
   }
 
   validateNumber(event: any) {
-    if (!new RegExp(/^0[0-9]{9}$/).test(event.target.value)) {
+    if (!new RegExp(AppComponent.regexTelephone).test(event.target.value)) {
       event.target.classList.add("is-invalid")
     } else event.target.classList.remove("is-invalid");
   }
