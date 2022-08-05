@@ -13,6 +13,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 4. Dropdown Lists
 5. Telephone with Regex Validation
 
+## DEMO
+
+https://cell-edit-ts.stackblitz.io/
+
 ## How to Use
   1. Import cellEdit into your component
 
