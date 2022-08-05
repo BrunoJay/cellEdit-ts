@@ -1,27 +1,58 @@
 # CellEdit
+Have you ever been faced with a challenge of editing cells in tables within angular. 
+Worry not, this is project comes with a solution to your challenge.
+Provided is a detailed example of how you can use cellEdit to edit data of any type and update your values.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
-## Development server
+## Data types supported so far
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Text
+2. Number
+3. Date
+4. Dropdown Lists
+5. Telephone with Regex Validation
 
-## Code scaffolding
+## How to Use
+  1. Import cellEdit into your component
+   
+`import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  2. Implement OnUpdateCell on your component class
 
-## Build
+`export class MyCellEditComponent implements OnInit, OnUpdateCell `
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  3. Add method SaveCellValue to your component as shown below
 
-## Running unit tests
+````
+saveCellValue: any = (value: string, key: string, rowId: any): void => {
+  switch (key) {
+    case '1':
+       break;
+  }
+}
+````
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This is the method where you will be saving your new values using the row id of your record
 
-## Running end-to-end tests
+4. Add a `CellEditor` method to your component to be called on button click
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+````
+ cellEditor(row: any, td_id: any, key: string, oldValue: any, type?: string, selectList?: any) {
+    new CellEdit().edit(row.id, td_id, oldValue, key, this.saveCellValue, type, '', selectList);
+  }
+````
 
+5. Edit your HTML component to add a `div` element as shown below
+
+````
+   <td class='text-center' id="{{row.id + '-name'}}">{{ row.name }}
+      <div>
+        <button class="btn btn-link" (click)="cellEditor(row, row.id + '-name', 'name', row.name)">
+          <i class="fa-solid fa-pencil"></i></button>
+      </div>
+    </td>
+````
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on cellEdit, contact @brunoJay on github or reach out to brunojay001@gmail.com

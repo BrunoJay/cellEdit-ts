@@ -7,14 +7,16 @@ export class CellEdit {
                      rowId: any,
                      key: string,
                      oldValue: any,
-                     type?: string,): HTMLDivElement {
+                     type?: string,
+                     status?: string,
+                     selectList?: []): HTMLDivElement {
     const icon_pencil = document.createElement('i');
     icon_pencil.classList.add('fa-solid', 'fa-pencil');
 
     const button = document.createElement('button');
     button.classList.add('btn', 'btn-link');
     button.addEventListener('click', (e: Event) => {
-      new CellEdit().edit(rowId, rowId, oldValue, key, saveCellValue, type);
+      new CellEdit().edit(rowId, rowId, oldValue, key, saveCellValue, type, status, selectList);
     });
     button.appendChild(icon_pencil);
 
@@ -186,7 +188,7 @@ export class CellEdit {
 }
 
 export abstract class OnUpdateCell {
-  saveCellValue:any = (value: string, key: string, rowId: any, row?: any) => void {};
+  saveCellValue: any = (value: string, key: string, rowId: any, row?: any) => void {};
 }
 
 

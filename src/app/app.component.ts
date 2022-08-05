@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnUpdateCell {
     {id: 'wefaweffawf', name: 'Psychology'}
   ]
 
+  //Provide your regex here in case you are going to use telephone
   static regexTelephone = /^0[0-9]{9}$/
 
   ngOnInit(): void {
