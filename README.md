@@ -15,16 +15,20 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## How to Use
   1. Import cellEdit into your component
-   
-`import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";`
+
+````typescript
+import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";
+````
 
   2. Implement OnUpdateCell on your component class
 
-`export class MyCellEditComponent implements OnInit, OnUpdateCell `
+````typescript
+export class MyCellEditComponent implements OnInit, OnUpdateCell
+````
 
   3. Add method SaveCellValue to your component as shown below
 
-````
+````typescript
 saveCellValue: any = (value: string, key: string, rowId: any): void => {
   switch (key) {
     case '1':
@@ -37,7 +41,7 @@ This is the method where you will be saving your new values using the row id of 
 
 4. Add a `CellEditor` method to your component to be called on button click
 
-````
+````typescript
  cellEditor(row: any, td_id: any, key: string, oldValue: any, type?: string, selectList?: any) {
     new CellEdit().edit(row.id, td_id, oldValue, key, this.saveCellValue, type, '', selectList);
   }
@@ -45,7 +49,7 @@ This is the method where you will be saving your new values using the row id of 
 
 5. Edit your HTML component to add a `div` element as shown below
 
-````
+````html
    <td class='text-center' id="{{row.id + '-name'}}">{{ row.name }}
       <div>
         <button class="btn btn-link" (click)="cellEditor(row, row.id + '-name', 'name', row.name)">
