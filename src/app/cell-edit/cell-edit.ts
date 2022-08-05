@@ -114,7 +114,7 @@ export class CellEdit {
         } else if (type == 'date') {
           input = document.createElement('input');
           input.placeholder = "Date";
-          input.type = "text";
+          input.type = "date";
           input.addEventListener("keyup", (e: Event) => this.validateNumber(e));
         } else {
           input = document.createElement('textarea');

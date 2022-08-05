@@ -40,7 +40,7 @@
             </td>
             <td class='text-center' id="{{row.id + '-dateOfBirth'}}">{{ row.dateOfBirth }}
               <div>
-                <button class="btn btn-link" (click)="cellEditor(row, row.id + '-dateOfBirth', 'dateOfBirth', row.age, 'date')">
+                <button class="btn btn-link" (click)="cellEditor(row, row.id + '-dateOfBirth', 'dateOfBirth', row.dateOfBirth, 'date')">
                   <i class="fa-solid fa-pencil"></i></button>
               </div>
             </td>
@@ -52,7 +52,7 @@
             </td>
             <td class='text-center' id="{{row.id + '-course'}}">{{ row.course }}
               <div>
-                <button class="btn btn-link" (click)="cellEditor(row, row.id + '-course', 'course', row.age, 'select', courses)">
+                <button class="btn btn-link" (click)="cellEditor(row, row.id + '-course', 'course', row.course, 'select', courses)">
                   <i class="fa-solid fa-pencil"></i></button>
               </div>
             </td>
