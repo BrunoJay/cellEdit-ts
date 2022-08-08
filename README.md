@@ -27,7 +27,9 @@ import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";
   2. Implement OnUpdateCell on your component class
 
 ````typescript
-export class MyCellEditComponent implements OnInit, OnUpdateCell
+export class MyCellEditComponent implements OnInit, OnUpdateCell {
+    
+}
 ````
 
   3. Add method SaveCellValue to your component as shown below

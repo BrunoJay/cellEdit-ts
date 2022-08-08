@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";
 
 @Component({
@@ -6,7 +6,7 @@ import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnUpdateCell {
+export class AppComponent implements AfterViewInit, OnUpdateCell {
   title = 'cell-edit';
 
   rows = [
@@ -35,18 +35,46 @@ export class AppComponent implements OnInit, OnUpdateCell {
     {id: 'wefaweffawf', name: 'Psychology'}
   ]
 
-  //Provide your regex here in case you are going to use telephone
-  static regexTelephone = /^0[0-9]{9}$/
+  ngAfterViewInit(): void {
+    //create an instance of cell Edit
+    let cellEdit = new CellEdit()
 
-  ngOnInit(): void {
-  }
+    //pick all td with cell-edit class name
+    const cellsToEdit = document.getElementsByClassName('cell-edit');
 
-  cellEditor(row: any, td_id: any, key: string, oldValue: any, type?: string, selectList?: any) {
-    new CellEdit().edit(row.id, td_id, oldValue, key, this.saveCellValue, type, '', selectList);
+    //create editable cells
+    for (let i = 0; i < cellsToEdit.length; i++) {
+      const cell = cellsToEdit[i] as HTMLElement;
+
+      //check for cells with select as type and pass select items
+      let type = cell.getAttribute("data-type") ?? undefined
+      if (type === 'select') {
+        let key = cell.getAttribute("data-name")
+
+        //add the if statements here in case of select cells
+        //make sure you pass the list here which
+        //your list should have name and id as keys
+        if (key === 'course') {
+          cellEdit.createEditableCell(cell, this.saveCellValue, this.courses)
+        }
+      } else {
+        //create the other editable cells from here
+        cellEdit.createEditableCell(cell, this.saveCellValue)
+      }
+    }
   }
 
   saveCellValue: any = (value: string, key: string, rowId: any): void => {
     switch (key) {
+      case 'name':
+        if (this.rows.some(x => x.id === rowId)) {
+          this.rows.forEach(function (item) {
+            if (item.id === rowId) {
+              item.name = value;
+            }
+          });
+        }
+        break;
       case 'age':
         if (this.rows.some(x => x.id === rowId)) {
           this.rows.forEach(function (item) {
