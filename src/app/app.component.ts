@@ -49,7 +49,7 @@ export class AppComponent implements AfterViewInit, OnUpdateCell {
       //check for cells with select as type and pass select items
       let type = cell.getAttribute("data-type") ?? undefined
       if (type === 'select') {
-        let key = cell.getAttribute("data-name")
+        let key = cell.getAttribute("data-key")
 
         //add the if statements here in case of select cells
         //make sure you pass the list here which
