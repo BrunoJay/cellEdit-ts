@@ -1,5 +1,5 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";
+import {CellEdit, OnUpdateCell} from "@brunojay/cell-edit";
 
 @Component({
   selector: 'app-root',

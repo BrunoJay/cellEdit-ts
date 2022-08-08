@@ -1,68 +1,112 @@
 # CellEdit
-Have you ever been faced with a challenge of editing cells in tables within angular. 
-Worry not, this is project comes with a solution to your challenge.
-Provided is a detailed example of how you can use cellEdit to edit data of any type and update your values.
+Have you ever been faced with a challenge of editing cell data in a table within angular? 
+Worry not, this package provides the most suitable solution.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
+Below is a detailed example of how you can use cellEdit to edit cell data in the available data types.
 
-## Data types supported so far
+## Data types supported currently
 
-1. Text
-2. Number
-3. Date
-4. Dropdown Lists
-5. Telephone with Regex Validation
+1. `text`
+2. `number`
+3. `date`
+4. `select`  - Editable Dropdown List
+5. `telephone` - Phone Number with Regex Validation
 
-## DEMO
+## Installation
 
-https://cell-edit-ts.stackblitz.io/
+````
+npm i @brunojay/cell-edit
+````
 
-## How to Use
+## How to Use - Example
   1. Import cellEdit into your component
 
 ````typescript
-import {CellEdit, OnUpdateCell} from "./cell-edit/cell-edit";
+import {CellEdit, OnUpdateCell} from "@brunojay/cell-edit";
 ````
 
-  2. Implement OnUpdateCell on your component class
+  2. Implement AfterViewInit and OnUpdateCell on your component class
 
 ````typescript
-export class MyCellEditComponent implements OnInit, OnUpdateCell {
-    
+export class MyComponent implements AfterViewInit, OnUpdateCell {
+  rows = [
+    {
+      id: "4af5a284-14c7-11ed-861d-0242ac120002",
+      name: "John Wick",
+      age: "45",
+      dateOfBirth: "1977-08-18",
+      telephone: "2424262626",
+      course: "Agriculture",
+    },
+    {
+      id: "4f2bd030-14c7-11ed-861d-0242ac120002",
+      name: "Alexandar Dor",
+      age: "25",
+      dateOfBirth: "1997-09-01",
+      telephone: "0773341425",
+      course: "Engineering",
+    }
+  ]
 }
 ````
 
-  3. Add method SaveCellValue to your component as shown below
+  3. Add method SaveCellValue to your component as shown below (Please take note of the syn)
 
 ````typescript
 saveCellValue: any = (value: string, key: string, rowId: any): void => {
   switch (key) {
-    case '1':
-       break;
+    case 'name':
+      if (this.rows.some(x => x.id === rowId)) {
+        this.rows.forEach(function (item) {
+          if (item.id === rowId) {
+            item.name = value;
+          }
+        });
+      }
+      break;
+      //you will add more cases here depending on the cells you are editing
   }
 }
 ````
 
 This is the method where you will be saving your new values using the row id of your record
 
-4. Add a `CellEditor` method to your component to be called on button click
+4. Add method `ngAfterViewInit` to your component to be called after the view has been rendered
 
 ````typescript
- cellEditor(row: any, td_id: any, key: string, oldValue: any, type?: string, selectList?: any) {
-    new CellEdit().edit(row.id, td_id, oldValue, key, this.saveCellValue, type, '', selectList);
+ngAfterViewInit(): void {
+  //create an instance of cell Edit
+  let cellEdit = new CellEdit();
+
+  //pick all td with cell-edit class name
+  const cellsToEdit = document.getElementsByClassName('cell-edit');
+
+  //create editable cells
+  for (let i = 0; i < cellsToEdit.length; i++) {
+    const cell = cellsToEdit[i] as HTMLElement;
+  
+    //create the other editable cells from here
+    cellEdit.createEditableCell(cell, this.saveCellValue);
   }
+}
+
 ````
 
 5. Edit your HTML component to add a `div` element as shown below
 
 ````html
-   <td class='text-center' id="{{row.id + '-name'}}">{{ row.name }}
-      <div>
-        <button class="btn btn-link" (click)="cellEditor(row, row.id + '-name', 'name', row.name)">
-          <i class="fa-solid fa-pencil"></i></button>
-      </div>
-    </td>
+   <tr *ngFor="let row of rows">
+      <td class="text-center cell-edit"
+          data-name="name"
+          data-type="text"
+          id="{{row.id}}">{{ row.name }}</td>
+      <td>...//add the rest here</td>
+  </tr>
 ````
-## Further help
+## Detailed example and DEMO available here
 
-To get more help on cellEdit, contact @brunoJay on github or reach out to brunojay001@gmail.com
+https://cell-edit-ts.stackblitz.io/
+
+## Reach for more help or to contribute
+
+Contact @brunoJay on github or email to brunojay001@gmail.com
