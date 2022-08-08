@@ -117,3 +117,7 @@ https://cell-edit-ts.stackblitz.io/
 ## Reach for more help or to contribute
 
 Contact @brunoJay on github or email to brunojay001@gmail.com
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details
