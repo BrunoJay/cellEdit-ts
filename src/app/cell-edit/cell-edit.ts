@@ -136,7 +136,6 @@ export class CellEdit {
           input.value = oldValue
           input.placeholder = "Date";
           input.type = "date";
-          input.addEventListener("keyup", (e: Event) => this.validateNumber(e));
         } else {
           input = document.createElement('textarea');
           input.value = oldValue
