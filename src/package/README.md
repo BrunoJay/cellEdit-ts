@@ -103,6 +103,13 @@ ngAfterViewInit(): void {
       <td>...//add the rest here</td>
   </tr>
 ````
+
+# Text
+![Alt text](src/assets/example.png?raw=true "Example Text")
+
+# Date
+![Alt text](src/assets/example2.png?raw=true "Example Date")
+
 ## Detailed example and DEMO available here
 
 https://cell-edit-ts.stackblitz.io/
