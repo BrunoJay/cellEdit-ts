@@ -1,10 +1,16 @@
 {
   "name": "@brunojay/cell-edit",
   "author": "BrunoJay",
-  "version": "1.0.8",
+  "version": "1.0.9",
+  "license": "MIT",
   "description": "This package enables you to create editable table cells in angular",
   "main": "./lib/main.js",
   "types": "./lib/main.d.ts",
+  "keywords": [
+    "edit cell in table",
+    "cell edit",
+    "table editing"
+  ],
   "dependencies": {
     "typescript": "next"
   },

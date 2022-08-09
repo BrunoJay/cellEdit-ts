@@ -50,7 +50,7 @@ export class MyComponent implements AfterViewInit, OnUpdateCell {
 }
 ````
 
-  3. Add method SaveCellValue to your component as shown below (Please take note of the syn)
+  3. Add an Arrow Function called SaveCellValue to your component as shown below (Please take note of the syntax)
 
 ````typescript
 saveCellValue: any = (value: string, key: string, rowId: any): void => {
@@ -71,7 +71,7 @@ saveCellValue: any = (value: string, key: string, rowId: any): void => {
 
 This is the method where you will be saving your new values using the row id of your record
 
-4. Add method `ngAfterViewInit` to your component to be called after the view has been rendered
+4. Add function for `ngAfterViewInit` to your component which will be called after the view has been rendered
 
 ````typescript
 ngAfterViewInit(): void {
@@ -103,6 +103,8 @@ ngAfterViewInit(): void {
       <td>...//add the rest here</td>
   </tr>
 ````
+
+### How it looks like
 
 # Text
 ![Alt text](src/assets/example.png?raw=true "Example Text")

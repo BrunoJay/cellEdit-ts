@@ -1,5 +1,5 @@
 # CellEdit
-Have you ever been faced with a challenge of editing cell data in a table within angular? 
+Have you ever been faced with a challenge of editing cell data in a table within angular?
 Worry not, this package provides the most suitable solution.
 
 Below is a detailed example of how you can use cellEdit to edit cell data in the available data types.
@@ -19,13 +19,13 @@ npm i @brunojay/cell-edit
 ````
 
 ## How to Use - Example
-  1. Import cellEdit into your component
+1. Import cellEdit into your component
 
 ````typescript
 import {CellEdit, OnUpdateCell} from "@brunojay/cell-edit";
 ````
 
-  2. Implement AfterViewInit and OnUpdateCell on your component class
+2. Implement AfterViewInit and OnUpdateCell on your component class
 
 ````typescript
 export class MyComponent implements AfterViewInit, OnUpdateCell {
@@ -50,7 +50,7 @@ export class MyComponent implements AfterViewInit, OnUpdateCell {
 }
 ````
 
-  3. Add method SaveCellValue to your component as shown below (Please take note of the syn)
+3. Add an Arrow Function called SaveCellValue to your component as shown below (Please take note of the syntax)
 
 ````typescript
 saveCellValue: any = (value: string, key: string, rowId: any): void => {
@@ -71,7 +71,7 @@ saveCellValue: any = (value: string, key: string, rowId: any): void => {
 
 This is the method where you will be saving your new values using the row id of your record
 
-4. Add method `ngAfterViewInit` to your component to be called after the view has been rendered
+4. Add function for `ngAfterViewInit` to your component which will be called after the view has been rendered
 
 ````typescript
 ngAfterViewInit(): void {
