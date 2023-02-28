@@ -1,5 +1,5 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {CellEdit, OnUpdateCell} from "@brunojay/cell-edit";
+import {CellEdit, OnUpdateCell} from "../package";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {CellEdit, OnUpdateCell} from "@brunojay/cell-edit";
 export class AppComponent implements AfterViewInit, OnUpdateCell {
   title = 'cell-edit';
 
-  rows = [
+  rows:any[] = [
     {
       id: "4af5a284-14c7-11ed-861d-0242ac120002",
       name: "John Wick",
@@ -40,11 +40,12 @@ export class AppComponent implements AfterViewInit, OnUpdateCell {
     let cellEdit = new CellEdit()
 
     //pick all td with cell-edit class name
-    const cellsToEdit = document.getElementsByClassName('cell-edit');
+    let cellsToEdit: any;
+    cellsToEdit = document.getElementsByClassName('cell-edit');
 
     //create editable cells
-    for (let i = 0; i < cellsToEdit.length; i++) {
-      const cell = cellsToEdit[i] as HTMLElement;
+    for (const element of cellsToEdit) {
+      const cell = element as HTMLElement;
 
       //check for cells with select as type and pass select items
       let type = cell.getAttribute("data-type") ?? undefined
@@ -65,57 +66,13 @@ export class AppComponent implements AfterViewInit, OnUpdateCell {
   }
 
   saveCellValue: any = (value: string, key: string, rowId: any): void => {
-    switch (key) {
-      case 'name':
-        if (this.rows.some(x => x.id === rowId)) {
-          this.rows.forEach(function (item) {
-            if (item.id === rowId) {
-              item.name = value;
-            }
-          });
+    if (this.rows.some(x => x.id === rowId)) {
+      this.rows.forEach(function (item) {
+        if (item.id === rowId) {
+          item[key] = value;
         }
-        break;
-      case 'age':
-        if (this.rows.some(x => x.id === rowId)) {
-          this.rows.forEach(function (item) {
-            if (item.id === rowId) {
-              item.age = value;
-            }
-          });
-        }
-        console.log("value", value)
-        break;
-      case 'dateOfBirth':
-        if (this.rows.some(x => x.id === rowId)) {
-          this.rows.forEach(function (item) {
-            if (item.id === rowId) {
-              item.dateOfBirth = value;
-            }
-          });
-        }
-        console.log("value", value)
-        break;
-      case 'telephone':
-        if (this.rows.some(x => x.id === rowId)) {
-          this.rows.forEach(function (item) {
-            if (item.id === rowId) {
-              item.telephone = value;
-            }
-          });
-        }
-        console.log("value", value)
-        break;
-      case 'course':
-        if (this.rows.some(x => x.id === rowId)) {
-          this.rows.forEach(function (item) {
-            if (item.id === rowId) {
-              item.course = value;
-            }
-          });
-        }
-        console.log("value", value)
-        break;
+      });
     }
+    console.log("value", value)
   }
-
 }
