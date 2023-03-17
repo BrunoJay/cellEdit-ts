@@ -53,19 +53,16 @@ export class MyComponent implements AfterViewInit, OnUpdateCell {
 3. Add an Arrow Function called SaveCellValue to your component as shown below (Please take note of the syntax)
 
 ````typescript
-saveCellValue: any = (value: string, key: string, rowId: any): void => {
-  switch (key) {
-    case 'name':
-      if (this.rows.some(x => x.id === rowId)) {
-        this.rows.forEach(function (item) {
-          if (item.id === rowId) {
-            item.name = value;
-          }
-        });
+  saveCellValue: any = (value: string, key: string, rowId: any): void => {
+  if (this.rows.some(x => x.id === rowId)) {
+    this.rows.forEach(function (item) {
+      if (item.id === rowId) {
+        item[key] = value;
       }
-      break;
-      //you will add more cases here depending on the cells you are editing
+    });
   }
+  console.log("value", value)
+  //you will add more cases here depending on the cells you are editing
 }
 ````
 
