@@ -2,7 +2,7 @@
   "type": "module",
   "name": "@brunojay/cell-edit",
   "author": "BrunoJay",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "This package enables you to create editable table cells in angular",
   "main": "./lib/main.js",
