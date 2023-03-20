@@ -31,118 +31,117 @@ export class CellEdit {
   edit(tdId, oldValue, key, save, type, status) {
     let _this = this;
     let td = document.querySelectorAll('[td-id="' + tdId + '"]')[0];
-    let container1 = td === null || td === void 0 ? void 0 : td.firstElementChild;
-    if (this.condition) container1.style.display = 'none'; else container1.style.display = 'block';
+    this.toggleContainer(td, this.condition);
     if (status === "save") {
-      let newValue = void 0, extras = void 0;
-      if (type === 'select') {
-        let select = document.getElementById("input-" + tdId);
-        newValue = select.value;
-        let opt = document.querySelector('option[value="' + newValue + '"]');
-        if (opt != null) extras = opt.getAttribute('data-id');
-      } else {
-        newValue = document.getElementById("input-" + tdId).value;
-      }
+      let [newValue, extras] = this.getNewValue(type, tdId);
       save(newValue, key, td.id, extras);
       this.condition = false;
     } else if (status === "cancel") {
       document.getElementById("input-" + tdId).value = oldValue;
       this.condition = false;
-    } else this.condition = !this.condition;
-    if (this.condition) container1.style.display = 'none'; else container1.style.display = 'block';
+    } else {
+      this.condition = !this.condition;
+      this.toggleContainer(td, this.condition);
+    }
     if (this.isNotEditing(tdId)) {
-      let saveButton = document.createElement("button");
-      saveButton.classList.add('btn', 'btn-link');
-      saveButton.setAttribute('type', "button");
-      saveButton.addEventListener("click", function (e) {
+      let saveButton = this.createButton('fa-check', tdId, 'save', function (e) {
         return _this.edit(tdId, oldValue, key, save, type, "save");
-      });
-      saveButton.id = "save_button" + tdId;
-      let cancelButton = document.createElement("button");
-      cancelButton.classList.add('btn', 'btn-link');
-      cancelButton.setAttribute('type', "button");
-      cancelButton.addEventListener("click", function (e) {
+      })
+
+      let cancelButton = this.createButton('fa-xmark', tdId, 'cancel', function (e) {
         return _this.edit(tdId, oldValue, key, save, type, "cancel");
-      });
-      cancelButton.id = "cancel_button" + tdId;
-      let icon_check = document.createElement('i');
-      icon_check.classList.add('fa-solid', 'fa-check');
-      let icon_times = document.createElement('i');
-      icon_times.classList.add('fa-solid', 'fa-xmark');
-      let container = document.createElement('div');
-      container.id = "edit-cell-" + tdId;
-      container.style.display = 'flex';
-      container.style.justifyContent = 'center';
-      let input = void 0;
-      let selectInput = void 0;
-      if (type === 'select') {
-        let selectList = void 0;
-        if (global.selectItems === undefined) {
-          console.log('Error: ', 'no select items found');
-          selectList = [];
-        } else selectList = global.selectItems[key];
-        container.classList.add('form-group', 'text-center');
-        container.style.margin = '0 0 30px 30px';
-        container.style.width = '60%';
-        selectInput = document.createElement('input');
-        selectInput.id = "input-" + tdId;
-        selectInput.value = oldValue;
-        selectInput.classList.add('form-control', 'form-control-sm');
-        selectInput.setAttribute('list', "data-list");
-        input = document.createElement('datalist');
-        input.id = "data-list";
-        input.insertAdjacentHTML('afterbegin', "<option selected>" + oldValue + "</option>\n" + this.getOptionsForSelect(selectList, oldValue));
-      } else {
-        if (type === 'number') {
-          input = document.createElement('input');
-          input.value = oldValue;
-          input.type = 'number';
-        } else if (type === 'telephone') {
-          input = document.createElement('input');
-          input.value = oldValue;
-          input.placeholder = "Telephone Number";
-          input.type = "text";
-          input.addEventListener("keyup", function (e) {
-            return _this.validateNumber(e);
-          });
-        } else if (type === 'date') {
-          input = document.createElement('input');
-          input.value = oldValue;
-          input.placeholder = "Date";
-          input.type = "date";
-        } else {
-          input = document.createElement('textarea');
-          input.value = oldValue;
-          input.setAttribute('rows', '1');
-        }
-        input.classList.add('form-control', 'in-line-cell');
-        input.id = "input-" + tdId;
-        input.setAttribute('value', oldValue);
-        input.setAttribute('name', key);
-        input.style.maxWidth = '300px';
-        input.style.minWidth = '100px';
-      }
-      saveButton.appendChild(icon_check);
-      cancelButton.appendChild(icon_times);
-      if (type === 'select') {
-        container.appendChild(selectInput);
-      }
-      container.appendChild(input);
+      })
+
+      let container = this.createEditContainer(tdId, oldValue, key, type);
       container.appendChild(saveButton);
       container.appendChild(cancelButton);
+
       if (td != null) td.style.justifyContent = 'center';
-      td === null || td === void 0 ? void 0 : td.appendChild(container);
+      td?.appendChild(container);
     } else {
       let container2 = document.getElementById("edit-cell-" + tdId);
       if (container2 != null) if (this.condition) container2.style.display = 'flex'; else container2.style.display = 'none';
-      if (this.condition) container1.style.display = 'none'; else container1.style.display = 'block';
+      this.toggleContainer(td, this.condition);
     }
   };
 
+  createEditContainer(tdId, oldValue, key, type) {
+    const container = document.createElement('div');
+    container.id = `edit-cell-${tdId}`;
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+
+    if (type === 'select') {
+      const selectInput = document.createElement('input');
+      selectInput.id = `input-${tdId}`;
+      selectInput.value = oldValue;
+      selectInput.classList.add('form-control', 'form-control-sm');
+      selectInput.setAttribute('list', 'data-list');
+
+      const options = this.getOptionsForSelect(global.selectItems?.[key], oldValue);
+      const datalist = document.createElement('datalist');
+      datalist.id = 'data-list';
+      datalist.insertAdjacentHTML('afterbegin', `<option selected>${oldValue}</option>${options}`);
+
+      container.classList.add('form-group', 'text-center');
+      container.style.margin = '0 0 30px 30px';
+      container.style.width = '60%';
+      container.appendChild(selectInput);
+      container.appendChild(datalist);
+    } else {
+      const input = this.createInput(tdId, oldValue, key, type);
+      container.style.maxWidth = '300px';
+      container.style.minWidth = '100px';
+      container.appendChild(input);
+    }
+
+    return container;
+  }
+
+  createInput(tdId, oldValue, key, type) {
+    const input = document.createElement(type === 'textarea' ? 'textarea' : 'input');
+    input.value = oldValue;
+    input.setAttribute('name', key);
+    input.setAttribute('value', oldValue);
+    input.classList.add('form-control', 'in-line-cell');
+    input.id = `input-${tdId}`;
+    input.style.maxWidth = '300px';
+    input.style.minWidth = '100px';
+
+    if (type === 'number') {
+      input.type = 'number';
+    } else if (type === 'telephone') {
+      input.placeholder = 'Telephone Number';
+      input.type = 'text';
+      input.addEventListener('keyup', this.validateNumber);
+    } else if (type === 'date') {
+      input.placeholder = 'Date';
+      input.type = 'date';
+    } else if (type === 'textarea') {
+      input.setAttribute('rows', '1');
+    }
+
+    return input;
+  }
+
+  createButton(iconClass, tdId, action, clickHandler) {
+    const button = document.createElement('button');
+    button.classList.add('btn', 'btn-link');
+    button.setAttribute('type', 'button');
+    button.addEventListener('click', clickHandler);
+    button.id = `${action}_button${tdId}`;
+
+    const icon = document.createElement('i');
+    icon.classList.add('fa-solid', iconClass);
+    button.appendChild(icon);
+
+    return button;
+  }
+
   toggleContainer(td, condition) {
-    let container1 = td?.firstElementChild;
-    if (container1) {
-      container1.style.display = condition ? 'none' : 'block';
+    let container = td?.firstElementChild;
+    if (container) {
+      container.style.display = condition ? 'none' : 'block';
     }
   }
 
