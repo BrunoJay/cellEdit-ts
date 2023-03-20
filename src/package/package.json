@@ -6,6 +6,10 @@
   "description": "This package enables you to create editable table cells in angular",
   "main": "./lib/main.js",
   "types": "./lib/main.d.ts",
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
   "keywords": [
     "edit cell in table",
     "cell edit",
@@ -17,5 +21,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/BrunoJay/cellEdit-ts.git"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "jest-cli": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jsdom": "^21.1.1"
   }
 }
