@@ -79,7 +79,7 @@ describe('CellEdit', () => {
 
       // call createEditableCell and get the save button
       new CellEdit().createEditableCell(cellToEdit, saveCellValue);
-      var buttonId = "#edit_button" + cellToEdit.getAttribute("td-id");
+      const buttonId = "#edit_button" + cellToEdit.getAttribute("td-id");
       const saveButton = document.querySelector(buttonId);
       // click the save button
       if(saveButton!=null) saveButton.click();
