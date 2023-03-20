@@ -2,7 +2,7 @@ export class CellEdit {
 
   createEditableCell(cellToEdit, saveCellValue, selectList) {
     let _a;
-    global.selectItems = [];
+    window.selectItems = [];
     cellToEdit.setAttribute("td-id", this.createId());
     let oldValue = cellToEdit.innerHTML;
     let rowId = cellToEdit.getAttribute("id");
@@ -10,9 +10,9 @@ export class CellEdit {
     let key = cellToEdit.getAttribute("data-key");
     let regex = cellToEdit.getAttribute("data-regex");
     let type = (_a = cellToEdit.getAttribute("data-type")) !== null && _a !== void 0 ? _a : undefined;
-    if (regex) global.regexTelephone = regex;
+    if (regex) window.regexTelephone = regex;
     if (key != null && rowId != null && oldValue != null) {
-      if (type === 'select') global.selectItems[key] = selectList;
+      if (type === 'select') window.selectItems[key] = selectList;
       let icon_pencil = document.createElement('i');
       icon_pencil.classList.add('fa-solid', 'fa-pencil');
       let button = document.createElement('button');
@@ -78,7 +78,7 @@ export class CellEdit {
       selectInput.classList.add('form-control', 'form-control-sm');
       selectInput.setAttribute('list', 'data-list');
 
-      const options = this.getOptionsForSelect(global.selectItems?.[key], oldValue);
+      const options = this.getOptionsForSelect(window.selectItems?.[key], oldValue);
       const datalist = document.createElement('datalist');
       datalist.id = 'data-list';
       datalist.insertAdjacentHTML('afterbegin', `<option selected>${oldValue}</option>${options}`);
@@ -187,8 +187,8 @@ export class CellEdit {
   };
 
   validateNumber(event) {
-    if (global.regexTelephone === undefined) global.regexTelephone = "^0[0-9]{9}$";
-    if (!new RegExp(global.regexTelephone).test(event.target.value)) {
+    if (window.regexTelephone === undefined) window.regexTelephone = "^0[0-9]{9}$";
+    if (!new RegExp(window.regexTelephone).test(event.target.value)) {
       event.target.classList.add("is-invalid");
     } else event.target.classList.remove("is-invalid");
   };
