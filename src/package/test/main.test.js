@@ -1,5 +1,5 @@
-const { CellEdit } = require('../lib/main.js');
-const { JSDOM } = require('jsdom');
+import { CellEdit, OnUpdateCell } from '../lib/main.js';
+import { JSDOM } from 'jsdom';
 
 describe('CellEdit', () => {
   let dom;
@@ -64,33 +64,33 @@ describe('CellEdit', () => {
     });
   });
 
-  // describe('edit', () => {
-  //   it('should call the save function with the new value when the save button is clicked', () => {
-  //     // create a dummy cell element
-  //     const cellToEdit = document.createElement('td');
-  //     cellToEdit.innerHTML = 'test';
-  //     cellToEdit.setAttribute('td-id', 'testTdId');
-  //     cellToEdit.setAttribute('data-key', 'testKey');
-  //     cellToEdit.setAttribute('id', 'testId');
-  //     cellToEdit.setAttribute('data-type', 'text');
-  //
-  //     // create a spy function to pass to edit
-  //     const saveCellValue = jest.fn();
-  //
-  //     // call createEditableCell and get the save button
-  //     new CellEdit().createEditableCell(cellToEdit, saveCellValue);
-  //     var buttonId = "#edit_button" + cellToEdit.getAttribute("td-id");
-  //     const saveButton = document.querySelector(buttonId);
-  //     // click the save button
-  //     if(saveButton!=null) saveButton.click();
-  //
-  //     // expect the save function to have been called with the new value
-  //     expect(saveCellValue).toHaveBeenCalledWith(
-  //       '',
-  //       'testKey',
-  //       'testId',
-  //       undefined
-  //     );
-  //   });
-  // });
+  describe('edit', () => {
+    it('should call the save function with the new value when the save button is clicked', () => {
+      // create a dummy cell element
+      const cellToEdit = document.createElement('td');
+      cellToEdit.innerHTML = 'test';
+      cellToEdit.setAttribute('td-id', 'testTdId');
+      cellToEdit.setAttribute('data-key', 'testKey');
+      cellToEdit.setAttribute('id', 'testId');
+      cellToEdit.setAttribute('data-type', 'text');
+
+      // create a spy function to pass to edit
+      const saveCellValue = jest.fn();
+
+      // call createEditableCell and get the save button
+      new CellEdit().createEditableCell(cellToEdit, saveCellValue);
+      var buttonId = "#edit_button" + cellToEdit.getAttribute("td-id");
+      const saveButton = document.querySelector(buttonId);
+      // click the save button
+      if(saveButton!=null) saveButton.click();
+
+      // expect the save function to have been called with the new value
+      expect(saveCellValue).toHaveBeenCalledWith(
+        '',
+        'testKey',
+        'testId',
+        undefined
+      );
+    });
+  });
 });
