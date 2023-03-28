@@ -1,5 +1,5 @@
 export declare class CellEdit {
-  createEditableCell(cell: HTMLElement, saveCellValue: any, courses?: any): void ;
+  createEditableCell(cell: HTMLElement, saveCellValue: any, selectList?: any): void ;
 
   edit(tdId: any, oldValue: any, key: any, save: any, type: any, status: any) : void ;
 }
